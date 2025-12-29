@@ -29,10 +29,17 @@ async def get_movies(
 ):
 
     movies = await get_all_movies(db = db, page = page, per_page = per_page)
+
     if len(movies.get("movies")) == 0:
         raise HTTPException(
             status_code=404,
             detail="No movies found."
+        )
+
+    if page > movies.get("total_pages"):
+        raise HTTPException(
+            status_code=404,
+            detail="Page number out of range."
         )
 
     return movies
