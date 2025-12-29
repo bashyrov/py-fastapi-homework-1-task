@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from typing import Optional
+
+from pydantic import BaseModel, AnyUrl
 import datetime
 
 
@@ -23,7 +25,8 @@ class MovieDetailResponseSchema(BaseModel):
 
 
 class MovieListResponseSchema(BaseModel):
-    prev_page: int | None
-    next_page: int | None
+    prev_page: Optional[AnyUrl] = None
+    next_page: Optional[AnyUrl] = None
     total_pages: int
     total_items: int
+    movies: list[MovieDetailResponseSchema]
