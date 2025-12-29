@@ -1,12 +1,12 @@
 from typing import Optional
 
-from pydantic import BaseModel, AnyUrl
+from pydantic import BaseModel
 import datetime
 
 
 class MovieDetailResponseSchema(BaseModel):
     id: int
-    name: int
+    name: str
     date: datetime.date
     score: float
     genre: str
@@ -25,8 +25,12 @@ class MovieDetailResponseSchema(BaseModel):
 
 
 class MovieListResponseSchema(BaseModel):
-    prev_page: Optional[AnyUrl] = None
-    next_page: Optional[AnyUrl] = None
+    prev_page: Optional[str] = None
+    next_page: Optional[str] = None
     total_pages: int
     total_items: int
     movies: list[MovieDetailResponseSchema]
+
+
+    class Config:
+        orm_mode = True
